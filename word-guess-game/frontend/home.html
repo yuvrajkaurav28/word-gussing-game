@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WordQuest - Home</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔤</text></svg>"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/scenes.css"/>
+</head>
+<body class="home-page">
+
+  <!-- Full-screen animated background scene -->
+  <div class="scene scene-home fullscreen-scene" id="homeScene">
+
+    <!-- ── NIGHT elements ── -->
+    <div class="aurora"></div>
+    <div id="homeStars"></div>
+    <div id="homeFireflies"></div>
+
+    <!-- ── DAY elements (hidden at start) ── -->
+    <!-- Birds flying across the sky (top area) -->
+    <div id="homeBirds" style="display:none; position:absolute; top:0; left:0; width:100%; height:40%; z-index:3; pointer-events:none;"></div>
+
+    <!-- Animals on the ground -->
+    <div id="homeAnimals" style="display:none; position:absolute; bottom:16%; left:0; width:100%; z-index:4; pointer-events:none;"></div>
+
+    <!-- ── SHARED mountains & scenery ── -->
+
+    <!-- Far mountains -->
+    <div class="home-mountains-far">
+      <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="hmFar" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a3a6a" class="mtn-far-top"/>
+            <stop offset="100%" stop-color="#0a1e3a" class="mtn-far-bot"/>
+          </linearGradient>
+          <linearGradient id="hmFarDay" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7ab8e8"/>
+            <stop offset="100%" stop-color="#4a90c8"/>
+          </linearGradient>
+        </defs>
+        <polygon points="0,300 100,120 200,200 350,60 500,160 650,40 800,130 950,50 1100,110 1200,70 1200,300" fill="url(#hmFar)" opacity="0.8" id="mtnFarPoly"/>
+      </svg>
+    </div>
+
+    <!-- Mid mountains -->
+    <div class="home-mountains-mid">
+      <svg viewBox="0 0 1200 250" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="hmMid" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#0f2a4a"/>
+            <stop offset="100%" stop-color="#061525"/>
+          </linearGradient>
+        </defs>
+        <polygon points="0,250 150,100 280,170 420,70 560,140 700,60 850,120 1000,55 1200,90 1200,250" fill="url(#hmMid)" id="mtnMidPoly"/>
+      </svg>
+    </div>
+
+    <!-- Near hills -->
+    <div class="home-mountains-near">
+      <svg viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="none">
+        <polygon points="0,200 200,80 400,140 600,60 800,110 1000,50 1200,80 1200,200" fill="#061018" id="hillNearPoly"/>
+      </svg>
+    </div>
+
+    <!-- Forest trees -->
+    <div class="home-forest" id="homeForest">
+      <svg viewBox="0 0 1200 160" xmlns="http://www.w3.org/2000/svg" width="100%" preserveAspectRatio="none">
+        <g id="treesGroup">
+          <polygon points="0,160 25,60 50,160"   fill="#0a2a0a"/>
+          <polygon points="80,160 110,40 140,160" fill="#0d3010"/>
+          <polygon points="170,160 200,50 230,160" fill="#0a2a0a"/>
+          <polygon points="260,160 295,35 330,160" fill="#0d3010"/>
+          <polygon points="360,160 395,45 430,160" fill="#0a2a0a"/>
+          <polygon points="460,160 495,30 530,160" fill="#0d3010"/>
+          <polygon points="560,160 595,40 630,160" fill="#0a2a0a"/>
+          <polygon points="660,160 695,35 730,160" fill="#0d3010"/>
+          <polygon points="760,160 795,45 830,160" fill="#0a2a0a"/>
+          <polygon points="860,160 895,30 930,160" fill="#0d3010"/>
+          <polygon points="960,160 995,40 1030,160" fill="#0a2a0a"/>
+          <polygon points="1060,160 1095,50 1130,160" fill="#0d3010"/>
+          <polygon points="1150,160 1175,60 1200,160" fill="#0a2a0a"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Cabin glow -->
+    <div class="cabin-glow"></div>
+
+    <!-- Cabin -->
+    <div class="home-cabin">
+      <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" width="120" height="140">
+        <polygon points="10,70 60,10 110,70" fill="#3d1a00"/>
+        <polygon points="15,70 60,15 105,70" fill="#5a2800"/>
+        <rect x="70" y="20" width="12" height="30" fill="#2a1200"/>
+        <ellipse cx="76" cy="14" rx="7" ry="5" fill="rgba(180,180,180,0.3)" class="smoke-puff"/>
+        <rect x="20" y="70" width="80" height="60" fill="#2a1200"/>
+        <rect x="48" y="95" width="24" height="35" rx="3" fill="#1a0800"/>
+        <rect x="25" y="80" width="20" height="16" rx="2" fill="#f9c74f" opacity="0.9"/>
+        <rect x="75" y="80" width="20" height="16" rx="2" fill="#f9c74f" opacity="0.9"/>
+        <rect x="44" y="128" width="32" height="6" rx="2" fill="#3d1a00"/>
+        <rect x="40" y="133" width="40" height="5" rx="2" fill="#2a1200"/>
+      </svg>
+    </div>
+
+    <!-- Lake -->
+    <div class="home-lake">
+      <div class="lake-shimmer"></div>
+      <div class="lake-shimmer"></div>
+      <div class="lake-shimmer"></div>
+    </div>
+
+    <!-- Boat -->
+    <div class="home-boat">
+      <svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg" width="100" height="40">
+        <path d="M5,20 Q50,35 95,20 L85,30 Q50,42 15,30 Z" fill="#3d1a00"/>
+        <line x1="50" y1="5" x2="50" y2="22" stroke="#5a3010" stroke-width="2"/>
+        <path d="M50,5 L75,14 L50,22 Z" fill="rgba(200,200,220,0.5)"/>
+        <circle cx="35" cy="18" r="5" fill="#2a1200"/>
+        <rect x="32" y="22" width="6" height="8" rx="2" fill="#1a0a00"/>
+        <line x1="35" y1="18" x2="20" y2="30" stroke="#5a3010" stroke-width="1.5"/>
+      </svg>
+    </div>
+
+    <!-- Ducks -->
+    <div class="home-duck" style="animation-duration:18s;animation-delay:0s;">
+      <svg viewBox="0 0 40 20" width="40" height="20" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="20" cy="14" rx="14" ry="6" fill="#5a4a00"/>
+        <circle cx="30" cy="10" r="6" fill="#6b5a00"/>
+        <path d="M34,9 L40,10 L34,12 Z" fill="#f4a261"/>
+      </svg>
+    </div>
+    <div class="home-duck" style="animation-duration:22s;animation-delay:-8s;">
+      <svg viewBox="0 0 40 20" width="32" height="16" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="20" cy="14" rx="14" ry="6" fill="#4a3a00"/>
+        <circle cx="30" cy="10" r="6" fill="#5a4a00"/>
+        <path d="M34,9 L40,10 L34,12 Z" fill="#f4a261"/>
+      </svg>
+    </div>
+
+  </div><!-- end homeScene -->
+
+  <!-- ── UI Layer ── -->
+  <div class="home-ui-layer">
+
+    <!-- Navbar -->
+    <nav class="navbar glass-nav">
+      <div class="nav-logo">🔤 WordQuest</div>
+      <div class="nav-right">
+        <button class="btn-daynight" id="dayNightBtn" onclick="toggleDayNight()">☀️ Day Mode</button>
+        <span class="nav-user" id="navUser"></span>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Hero — centered -->
+    <section class="hero hero-centered">
+      <div class="hero-content glass-card hero-card">
+        <h1 class="hero-title">Welcome back, <span id="heroName">Player</span>!</h1>
+        <p class="hero-sub">Guess the missing letters. Climb the levels. Become a WordMaster.</p>
+        <button class="btn-play" onclick="window.location.href='/game'">
+          ▶ Play Now
+          <div class="btn-shine"></div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats-section">
+      <div class="stat-card glass-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-value" id="statLevel">1</div>
+        <div class="stat-label">Current Level</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-value" id="statScore">0</div>
+        <div class="stat-label">Total Score</div>
+      </div>
+      <div class="stat-card glass-card">
+        <div class="stat-icon">🔥</div>
+        <div class="stat-value" id="statStreak">0</div>
+        <div class="stat-label">Win Streak</div>
+      </div>
+    </section>
+
+    <!-- Level Progress -->
+    <section class="progress-section">
+      <h2 class="section-title">Level Progress</h2>
+      <div class="level-bar-wrap">
+        <div class="level-bar-track">
+          <div class="level-bar-fill" id="levelBarFill"></div>
+        </div>
+        <span class="level-bar-label" id="levelBarLabel">Level 1 / 100</span>
+      </div>
+      <div class="level-tiers">
+        <div class="tier tier-easy">Lv 1–10<br/><small>Beginner</small></div>
+        <div class="tier tier-med">Lv 11–30<br/><small>Novice</small></div>
+        <div class="tier tier-hard">Lv 31–60<br/><small>Skilled</small></div>
+        <div class="tier tier-expert">Lv 61–80<br/><small>Expert</small></div>
+        <div class="tier tier-master">Lv 81–100<br/><small>Master</small></div>
+      </div>
+    </section>
+
+    <!-- How to Play -->
+    <section class="howto-section">
+      <h2 class="section-title">How to Play</h2>
+      <div class="howto-grid">
+        <div class="howto-card glass-card">
+          <div class="howto-icon">👁️</div>
+          <h3>Read the Word</h3>
+          <p>A word appears with one or more letters replaced by blanks.</p>
+        </div>
+        <div class="howto-card glass-card">
+          <div class="howto-icon">🎯</div>
+          <h3>Pick the Letter</h3>
+          <p>Choose the correct missing letter from the options shown.</p>
+        </div>
+        <div class="howto-card glass-card">
+          <div class="howto-icon">📈</div>
+          <h3>Level Up</h3>
+          <p>Every 3 correct answers in a row advances you to the next level.</p>
+        </div>
+        <div class="howto-card glass-card">
+          <div class="howto-icon">🏅</div>
+          <h3>Earn Points</h3>
+          <p>Higher levels give more points. Reach level 100 to become a WordMaster!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>Developed by <span class="footer-name">Yuvraj Singh Kaurav</span></p>
+    </footer>
+
+  </div>
+
+  <script src="js/home.js"></script>
+  <script src="js/scene-builder.js"></script>
+  <script>buildHomeScene();</script>
+</body>
+</html>

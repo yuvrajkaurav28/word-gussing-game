@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WordQuest - Play</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔤</text></svg>"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link rel="stylesheet" href="css/scenes.css"/>
+</head>
+<body class="game-page">
+
+  <!-- Dynamic background scene (swapped by JS based on level) -->
+  <div class="scene fullscreen-scene" id="gameScene">
+
+    <!-- FOREST scene (Lv 1-10) — default -->
+    <div class="scene-forest" id="sceneForest" style="position:absolute;inset:0;">
+      <!-- Light rays -->
+      <div id="forestRays"></div>
+      <!-- Trees back -->
+      <svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" style="position:absolute;bottom:0;">
+        <defs>
+          <linearGradient id="treeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a4a1a"/>
+            <stop offset="100%" stop-color="#0a2a0a"/>
+          </linearGradient>
+        </defs>
+        <!-- Back trees -->
+        <g opacity="0.5">
+          <polygon points="60,400 80,200 100,400" fill="#0f2d0f"/>
+          <polygon points="160,400 185,180 210,400" fill="#0f2d0f"/>
+          <polygon points="280,400 305,160 330,400" fill="#0f2d0f"/>
+          <polygon points="400,400 430,190 460,400" fill="#0f2d0f"/>
+          <polygon points="520,400 550,170 580,400" fill="#0f2d0f"/>
+          <polygon points="650,400 680,185 710,400" fill="#0f2d0f"/>
+          <polygon points="780,400 810,165 840,400" fill="#0f2d0f"/>
+          <polygon points="900,400 930,180 960,400" fill="#0f2d0f"/>
+          <polygon points="1050,400 1080,175 1110,400" fill="#0f2d0f"/>
+        </g>
+        <!-- Front trees -->
+        <polygon points="0,400 30,220 60,400" fill="#1a4a1a"/>
+        <polygon points="100,400 135,190 170,400" fill="#1a4a1a"/>
+        <polygon points="220,400 260,170 300,400" fill="#1a4a1a"/>
+        <polygon points="350,400 390,155 430,400" fill="#1a4a1a"/>
+        <polygon points="480,400 520,165 560,400" fill="#1a4a1a"/>
+        <polygon points="610,400 650,150 690,400" fill="#1a4a1a"/>
+        <polygon points="740,400 780,160 820,400" fill="#1a4a1a"/>
+        <polygon points="870,400 910,155 950,400" fill="#1a4a1a"/>
+        <polygon points="1000,400 1040,165 1080,400" fill="#1a4a1a"/>
+        <polygon points="1130,400 1165,175 1200,400" fill="#1a4a1a"/>
+        <!-- Ground -->
+        <rect x="0" y="370" width="1200" height="30" fill="#0a2a0a"/>
+      </svg>
+      <!-- Fireflies -->
+      <div id="forestFireflies"></div>
+      <!-- Falling leaves -->
+      <div id="forestLeaves"></div>
+    </div>
+
+    <!-- DESERT scene (Lv 11-30) — hidden by default -->
+    <div class="scene-desert" id="sceneDesert" style="position:absolute;inset:0;display:none;">
+      <div class="desert-sun"></div>
+      <!-- Dunes SVG -->
+      <svg viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" style="position:absolute;bottom:0;">
+        <defs>
+          <linearGradient id="duneGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c06010"/>
+            <stop offset="100%" stop-color="#7a3a00"/>
+          </linearGradient>
+        </defs>
+        <!-- Back dunes -->
+        <path d="M0,400 Q150,200 300,280 Q450,360 600,220 Q750,80 900,200 Q1050,320 1200,250 L1200,400 Z" fill="#7a3a00" opacity="0.6"/>
+        <!-- Front dunes -->
+        <path d="M0,400 Q200,280 400,320 Q600,360 800,280 Q1000,200 1200,300 L1200,400 Z" fill="url(#duneGrad)"/>
+        <!-- Cacti -->
+        <g fill="#2d5a00">
+          <rect x="150" y="280" width="10" height="60"/>
+          <rect x="130" y="300" width="30" height="8" rx="4"/>
+          <rect x="350" y="260" width="10" height="70"/>
+          <rect x="330" y="285" width="30" height="8" rx="4"/>
+          <rect x="900" y="270" width="10" height="65"/>
+          <rect x="880" y="290" width="30" height="8" rx="4"/>
+        </g>
+      </svg>
+      <!-- Heat waves -->
+      <div id="desertHeat"></div>
+      <!-- Sand particles -->
+      <div id="desertSand"></div>
+    </div>
+
+    <!-- OCEAN scene (Lv 31-60) — hidden -->
+    <div class="scene-ocean" id="sceneOcean" style="position:absolute;inset:0;display:none;">
+      <!-- Lightning bolts -->
+      <div id="oceanLightning"></div>
+      <!-- Rain -->
+      <div id="oceanRain"></div>
+      <!-- Clouds SVG -->
+      <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" width="100%" style="position:absolute;top:0;" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="stormCloud" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a2a4a"/>
+            <stop offset="100%" stop-color="#0a1428"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="200" cy="80" rx="180" ry="60" fill="url(#stormCloud)" opacity="0.9"/>
+        <ellipse cx="500" cy="60" rx="220" ry="70" fill="url(#stormCloud)" opacity="0.85"/>
+        <ellipse cx="850" cy="75" rx="200" ry="65" fill="url(#stormCloud)" opacity="0.9"/>
+        <ellipse cx="1100" cy="55" rx="160" ry="55" fill="url(#stormCloud)" opacity="0.8"/>
+      </svg>
+      <!-- Ocean waves SVG -->
+      <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg" width="100%" style="position:absolute;bottom:0;" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1a4a8a"/>
+            <stop offset="100%" stop-color="#051525"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,100 Q150,60 300,100 Q450,140 600,100 Q750,60 900,100 Q1050,140 1200,100 L1200,300 L0,300 Z" fill="url(#waveGrad)" opacity="0.8">
+          <animate attributeName="d" dur="3s" repeatCount="indefinite"
+            values="M0,100 Q150,60 300,100 Q450,140 600,100 Q750,60 900,100 Q1050,140 1200,100 L1200,300 L0,300 Z;
+                    M0,120 Q150,80 300,120 Q450,160 600,120 Q750,80 900,120 Q1050,160 1200,120 L1200,300 L0,300 Z;
+                    M0,100 Q150,60 300,100 Q450,140 600,100 Q750,60 900,100 Q1050,140 1200,100 L1200,300 L0,300 Z"/>
+        </path>
+        <path d="M0,140 Q200,100 400,140 Q600,180 800,140 Q1000,100 1200,140 L1200,300 L0,300 Z" fill="#0a2040" opacity="0.9">
+          <animate attributeName="d" dur="4s" repeatCount="indefinite"
+            values="M0,140 Q200,100 400,140 Q600,180 800,140 Q1000,100 1200,140 L1200,300 L0,300 Z;
+                    M0,160 Q200,120 400,160 Q600,200 800,160 Q1000,120 1200,160 L1200,300 L0,300 Z;
+                    M0,140 Q200,100 400,140 Q600,180 800,140 Q1000,100 1200,140 L1200,300 L0,300 Z"/>
+        </path>
+      </svg>
+    </div>
+
+    <!-- SPACE scene (Lv 61-80) — hidden -->
+    <div class="scene-space" id="sceneSpace" style="position:absolute;inset:0;display:none;">
+      <!-- Nebula clouds -->
+      <div class="nebula-cloud" style="width:400px;height:300px;top:10%;left:5%;background:rgba(120,0,200,0.3);animation-duration:7s;"></div>
+      <div class="nebula-cloud" style="width:300px;height:200px;top:30%;right:10%;background:rgba(0,150,255,0.2);animation-duration:9s;animation-delay:-3s;"></div>
+      <div class="nebula-cloud" style="width:500px;height:250px;bottom:20%;left:30%;background:rgba(200,0,100,0.15);animation-duration:11s;animation-delay:-5s;"></div>
+      <!-- Stars -->
+      <div id="spaceStars"></div>
+      <!-- Shooting stars -->
+      <div id="shootingStars"></div>
+      <!-- Planets -->
+      <div style="position:absolute;top:15%;right:20%;width:80px;height:80px;background:radial-gradient(circle at 35% 35%,#a855f7,#4c1d95);border-radius:50%;box-shadow:0 0 30px rgba(168,85,247,0.5);animation:breathe 4s ease-in-out infinite;"></div>
+      <div style="position:absolute;top:60%;left:8%;width:50px;height:50px;background:radial-gradient(circle at 35% 35%,#06b6d4,#0e4f6b);border-radius:50%;box-shadow:0 0 20px rgba(6,182,212,0.4);animation:breathe 6s ease-in-out infinite;animation-delay:-2s;"></div>
+      <!-- Planet ring -->
+      <div style="position:absolute;top:13%;right:17%;width:120px;height:20px;border:3px solid rgba(168,85,247,0.4);border-radius:50%;transform:rotateX(70deg);"></div>
+      <!-- Milky way band -->
+      <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,transparent 30%,rgba(100,50,200,0.08) 50%,transparent 70%);pointer-events:none;"></div>
+    </div>
+
+    <!-- VOLCANO scene (Lv 81-100) — hidden -->
+    <div class="scene-volcano" id="sceneVolcano" style="position:absolute;inset:0;display:none;">
+      <div class="lava-glow"></div>
+      <!-- Volcano SVG -->
+      <svg viewBox="0 0 1200 500" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="none" style="position:absolute;bottom:0;">
+        <defs>
+          <linearGradient id="volcGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6b1500"/>
+            <stop offset="100%" stop-color="#1a0500"/>
+          </linearGradient>
+          <radialGradient id="lavaPool" cx="50%" cy="100%" r="50%">
+            <stop offset="0%" stop-color="#ff4400"/>
+            <stop offset="50%" stop-color="#cc2200"/>
+            <stop offset="100%" stop-color="#660000"/>
+          </radialGradient>
+        </defs>
+        <!-- Back volcano -->
+        <polygon points="200,500 500,100 800,500" fill="url(#volcGrad)" opacity="0.7"/>
+        <!-- Main volcano -->
+        <polygon points="350,500 600,80 850,500" fill="url(#volcGrad)"/>
+        <!-- Lava streams -->
+        <path d="M580,120 Q570,200 560,280 Q550,360 540,500" stroke="#ff4400" stroke-width="8" fill="none" opacity="0.7"/>
+        <path d="M620,130 Q635,210 645,300 Q655,380 660,500" stroke="#ff6600" stroke-width="6" fill="none" opacity="0.6"/>
+        <!-- Lava pool at base -->
+        <ellipse cx="600" cy="490" rx="200" ry="30" fill="url(#lavaPool)" opacity="0.8"/>
+        <!-- Ground -->
+        <rect x="0" y="470" width="1200" height="30" fill="#0a0000"/>
+        <!-- Rocks -->
+        <ellipse cx="150" cy="480" rx="60" ry="20" fill="#1a0500"/>
+        <ellipse cx="1050" cy="475" rx="80" ry="25" fill="#1a0500"/>
+      </svg>
+      <!-- Embers -->
+      <div id="volcanoEmbers"></div>
+      <!-- Ash -->
+      <div id="volcanoAsh"></div>
+      <!-- Lava cracks -->
+      <div id="lavaCracks"></div>
+    </div>
+
+  </div><!-- end gameScene -->
+
+  <!-- UI Layer -->
+  <div class="game-ui-layer">
+
+    <!-- Navbar -->
+    <nav class="navbar glass-nav">
+      <div class="nav-logo" onclick="window.location.href='/home'" style="cursor:pointer">🔤 WordQuest</div>
+      <div class="nav-center">
+        <span class="nav-badge">Level <span id="navLevel">1</span></span>
+        <span class="nav-badge score-badge">⭐ <span id="navScore">0</span></span>
+        <span class="nav-badge streak-badge">🔥 <span id="navStreak">0</span></span>
+      </div>
+      <div class="nav-right">
+        <button class="btn-logout" onclick="logout()">Logout</button>
+      </div>
+    </nav>
+
+    <!-- Game Area -->
+    <main class="game-main">
+      <div class="game-level-wrap">
+        <div class="game-level-bar">
+          <div class="game-level-fill" id="gameLevelFill"></div>
+        </div>
+        <span class="game-level-text">Level <span id="gameLevelText">1</span> / 100</span>
+      </div>
+
+      <!-- Scene name badge -->
+      <div class="scene-badge" id="sceneBadge">🌲 Enchanted Forest</div>
+
+      <div class="game-play-area">
+        <div class="word-display" id="wordDisplay"></div>
+        <p class="game-hint" id="gameHint">Pick the missing letter(s) below</p>
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <div class="feedback-wrap" id="feedbackWrap">
+          <div class="feedback-msg" id="feedbackMsg"></div>
+        </div>
+
+        <button class="btn-next hidden" id="nextBtn" onclick="nextWord()">
+          Next Word →
+          <div class="btn-shine"></div>
+        </button>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>Developed by <span class="footer-name">Yuvraj Singh Kaurav</span></p>
+    </footer>
+
+  </div>
+
+  <!-- Level Up Modal -->
+  <div class="modal-overlay hidden" id="levelUpModal">
+    <div class="modal-box">
+      <div class="modal-icon">🎉</div>
+      <h2>Level Up!</h2>
+      <p>You reached <strong id="newLevelText">Level 2</strong></p>
+      <p class="modal-sub" id="newSceneMsg"></p>
+      <button class="btn-primary" onclick="closeLevelUp()">Keep Playing</button>
+    </div>
+  </div>
+
+  <script src="js/game.js"></script>
+  <script src="js/scene-builder.js"></script>
+  <script>initGameScene();</script>
+</body>
+</html>
