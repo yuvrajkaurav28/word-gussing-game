@@ -89,5 +89,4 @@ word-guess-game/
 - **Animations:** Pure CSS keyframes + SVG
 
 ---
-
 Developed by **Yuvraj Singh Kaurav**
